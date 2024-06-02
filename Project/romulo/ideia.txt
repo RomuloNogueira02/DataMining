@@ -1,0 +1,8 @@
+Ir buscar as moleculas mais similares àquela e ver o nível de interação com a proteina
+
+Para isto teriamos de garantir que no dataset de teste, todas as proteinas existem no dataset de treino - EXISTEM
+
+Portanto a abordagem poderia ser...
+
+Para cada proteina ir buscar os elementos que a compoem, de seguida buscar as moleculas mais similares e a partir dai estimar o nivel de interação
+
