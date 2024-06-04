@@ -1,0 +1,21 @@
+uniprot_mols = set(ACTIVITY_TRAIN[ACTIVITY_TRAIN["uniprot_id"] == use_case["uniprot_id"]]["mol_id"].values)
+
+sim_mols = set(knn.keys())
+
+intercept_mols = sim_mols.intersection(uniprot_mols)
+
+subset = ACTIVITY_TRAIN[ACTIVITY_TRAIN["mol_id"].isin(intercept_mols)]
+
+num = 0
+den = 0
+for mol in intercept_mols:
+    # dic[mol] = {
+    #     "sim_score": knn[mol],
+    #     "activity": subset[subset["mol_id"] == mol]["activity"].values[0]
+    # }
+    #       s_ij    *      r_jx
+    num += knn[mol] * subset[subset["mol_id"] == mol]["activity"].values[0]
+    den += knn[mol]
+
+# dic
+estimated_activity = num / den

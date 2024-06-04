@@ -23,11 +23,13 @@ for key, values in MOL_BITS.items():
 def find_similar_keys(target_key, threshold=0.5):
     target_minhash = create_minhash(MOL_BITS[target_key])
     result = LSH.query(target_minhash)
-    toReturn = []
+    toReturn = {}
     for key in result:
+        if key == target_key:
+            continue
         score = 1 - jaccard_distance(set(MOL_BITS[target_key]), set(MOL_BITS[key]))
         if score > threshold:
-            toReturn.append({(target_key, key): score})
+            toReturn[key] = score
 
-    return sorted(toReturn, key=lambda x: list(x.values())[0], reverse=True)
+    return toReturn
 
